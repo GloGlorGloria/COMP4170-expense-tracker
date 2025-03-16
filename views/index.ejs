@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Expense Tracker <i class="fa-solid fa-money-bill-trend-up"></i></h1>
+
+        <form action="/add" method="POST">
+            <input type="text" name="description" placeholder="Items Description" required>
+            <input type="number" name="amount" placeholder="Amount" required>
+            <input type="date" name="date" required>
+            <select name="category" required>
+                <option value="" disabled selected>Category</option>
+                <option value="Grocery">Grocery</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Housing">Housing</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Other">Other</option>
+            </select>
+            <button type="submit">Add Expense</button>
+        </form>
+
+        <ul class="expense-list">
+            <li class="header">
+                <span>Category</span>
+                <span>Date</span>
+                <span>Description</span>
+                <span>Amount</span>
+                <span>Action</span>
+            </li>
+            <% expenses.forEach(expense => { %>
+                <li>
+                    <span class="expense-category"><%= expense.category %></span>
+                    <span class="expense-date"><%= expense.date %></span>
+                    <span class="expense-item"><%= expense.description %></span>
+                    <span class="expense-amount">$<%= expense.amount %></span>
+                    <form action="/delete/<%= expense.id %>" method="POST">
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </li>
+            <% }); %>
+        </ul>
+    </div>
+
+    <script src="/index.js"></script>
+</body>
+</html>
